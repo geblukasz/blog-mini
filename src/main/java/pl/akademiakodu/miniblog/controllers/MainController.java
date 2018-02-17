@@ -67,9 +67,9 @@ public class MainController {
     public String postsByTitle(@PathVariable String title
             , @PathVariable String sortField
             , Model model){
-//        List<Post> postsList = postRepository
-//                .findAllByTitleContains(title, Sort.by());
-               // model.addAttribute("posts", postsList);
+        List<Post> postsList = postRepository
+                .findAllByTitleContains(title, Sort.by(Sort.Direction.ASC, sortField));
+        model.addAttribute("posts", postsList);
         return "posts";
     }
 
