@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.akademiakodu.miniblog.model.entities.Post;
@@ -45,6 +46,17 @@ public class MainController {
             postsList.add(post);
         }
 
+        model.addAttribute("posts", postsList);
+        return "posts";
+    }
+
+    @GetMapping("/posts/{title}")
+    public String postsByTitle(@PathVariable String title, Model model){
+        List<Post> postsList = new ArrayList<>();
+        Iterable<Post> postIterable = postRepository.findAllByTitleContains(title);
+        for (Post post : postIterable) {
+            postsList.add(post);
+        }
         model.addAttribute("posts", postsList);
         return "posts";
     }
