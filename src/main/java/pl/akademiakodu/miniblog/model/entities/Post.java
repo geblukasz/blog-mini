@@ -2,6 +2,7 @@ package pl.akademiakodu.miniblog.model.entities;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Post {
@@ -17,6 +18,10 @@ public class Post {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date added = new Date();
+
+    @OneToMany
+    @JoinColumn(name = "postId")
+    List<PostComment> comments;
 
     @Override
     public String toString() {

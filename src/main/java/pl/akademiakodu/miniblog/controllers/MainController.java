@@ -63,12 +63,19 @@ public class MainController {
         return "posts";
     }
 
-    @GetMapping("/posts/{title}/{sortField}")
+    @GetMapping("/posts/{title}/{sortField}/{sortDirection}")
     public String postsByTitle(@PathVariable String title
-            , @PathVariable String sortField
+            , @PathVariable String sortField,
+            @PathVariable String sortDirection
             , Model model){
+
+        Sort.Direction direction = Sort.Direction.ASC;
+        if ("desc".equals(sortDirection)){
+            direction = Sort.Direction.DESC;
+        }
+
         List<Post> postsList = postRepository
-                .findAllByTitleContains(title, Sort.by(Sort.Direction.ASC, sortField));
+                .findAllByTitleContains(title, Sort.by(Sort.Direction.fromString(sortDirection), sortField));
         model.addAttribute("posts", postsList);
         return "posts";
     }
