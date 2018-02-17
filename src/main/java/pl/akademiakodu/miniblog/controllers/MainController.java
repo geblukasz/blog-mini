@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.akademiakodu.miniblog.model.entities.Post;
 import pl.akademiakodu.miniblog.model.repositories.PostRepository;
 
 @Controller
@@ -21,9 +22,9 @@ public class MainController {
 
     @PostMapping("/addPost")
     public String addPost(Model model, @RequestParam (value = "title") String titleParam, @RequestParam String content){
-
         System.out.println("Params: " + titleParam + ", " + content);
-
+        Post post = new Post(titleParam, content);
+        postRepository.save(post);
         return "index";
     }
 
@@ -32,6 +33,12 @@ public class MainController {
         return "addPost";
     }
 
+    @GetMapping("/posts")
+    public String postsPage(Model model){
+
+
+        return "posts";
+    }
 
     @Autowired
     public MainController(PostRepository postRepository) {
