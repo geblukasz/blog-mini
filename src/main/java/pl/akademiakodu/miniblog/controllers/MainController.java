@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.akademiakodu.miniblog.model.entities.Post;
+import pl.akademiakodu.miniblog.model.entities.PostComment;
 import pl.akademiakodu.miniblog.model.repositories.PostRepository;
 
 import java.util.ArrayList;
@@ -30,6 +31,14 @@ public class MainController {
     public String addPost(Model model, @RequestParam (value = "title") String titleParam, @RequestParam String content){
         System.out.println("Params: " + titleParam + ", " + content);
         Post post = new Post(titleParam, content);
+//        PostComment postComment = new PostComment();
+//        postComment.setComment(titleParam);
+//
+//        List<PostComment> commentList = new ArrayList<>();
+//        commentList.add(postComment);
+//
+//        post.setComments(commentList);
+
         postRepository.save(post);
         return "index";
     }
