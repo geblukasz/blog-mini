@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.akademiakodu.miniblog.model.entities.Post;
 import pl.akademiakodu.miniblog.model.repositories.PostRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class MainController {
 
@@ -35,8 +38,14 @@ public class MainController {
 
     @GetMapping("/posts")
     public String postsPage(Model model){
+        List<Post> postsList = new ArrayList<>();
+        Iterable<Post> postIterable = postRepository.findAll();
 
+        for (Post post : postIterable) {
+            postsList.add(post);
+        }
 
+        model.addAttribute("posts", postsList);
         return "posts";
     }
 

@@ -18,6 +18,19 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     private Date added = new Date();
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", added=" + added +
+                '}';
+    }
+
+    public Post() {
+    }
+
     public Post(String title, String content) {
         this.title = title;
         this.content = content;
