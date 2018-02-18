@@ -19,8 +19,8 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     private Date added = new Date();
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "postId")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
+    //@JoinColumn(name = "postId")
     List<PostComment> comments;
 
     @Override
