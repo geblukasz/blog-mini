@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini blog</title>
+</head>
+<body>
+<div class="header">
+    <div th:replace="~{includes/searchbar :: searchForm}"></div>
+
+</div>
+<div th:if="${post != null}">
+    <h1 th:text="${post.title}"></h1>
+    <div th:text="${post.content}"></div>
+    <!-- czas, treść -->
+    <div th:each="comment : ${post.comments}">
+        <div th:text="${#dates.format(comment.added, 'yyyyMMdd hh:mm:ss')}"></div>
+        <div th:text="${comment.comment}"></div>
+    </div>
+</div>
+<p th:if="${post == null}">
+    Przepraszamy, ale nie znalezlismy postu, ktorego szukasz. :(
+</p>
+</body>
+</html>
