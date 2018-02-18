@@ -1,9 +1,7 @@
 package pl.akademiakodu.miniblog.model.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Post {
@@ -23,6 +21,22 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.MERGE)
     //@JoinColumn(name = "postId")
     List<PostComment> comments = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "mapPostTag",
+        joinColumns = {@JoinColumn(name="postId")},
+        inverseJoinColumns = {@JoinColumn(name = "tagId")})
+    private Set<Tag> tags = new HashSet<>();
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+
 
     public void addComment(PostComment postComment){
         comments.add(postComment);
