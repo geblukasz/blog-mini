@@ -5,6 +5,10 @@
     <title>Mini blog</title>
 </head>
 <body>
+<div class="header">
+    <div th:replace="~{includes/searchbar :: searchForm}"></div>
+
+</div>
 
 <h1>Moje posty</h1>
 <div th:each="post : ${posts}">
