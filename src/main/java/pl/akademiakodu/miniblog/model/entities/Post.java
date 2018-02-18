@@ -20,7 +20,7 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     private Date added = new Date();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.MERGE)
     //@JoinColumn(name = "postId")
     List<PostComment> comments = new ArrayList<>();
 
@@ -32,6 +32,14 @@ public class Post {
     public void removeComment(PostComment postComment){
         comments.remove(postComment);
         postComment.setPost(null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

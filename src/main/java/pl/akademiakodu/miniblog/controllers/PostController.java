@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.akademiakodu.miniblog.model.entities.Post;
+import pl.akademiakodu.miniblog.model.entities.PostComment;
 import pl.akademiakodu.miniblog.model.repositories.PostRepository;
 
 import java.util.Optional;
@@ -26,4 +29,21 @@ public class PostController {
 
         return "post";
     }
+
+    @PostMapping("/post/addComment")
+    public String addComment(@RequestParam String commentBody, @RequestParam Long postId){
+        PostComment postComment = new PostComment();
+        postComment.setComment(commentBody);
+
+        Optional<Post> postOptional = postRepository.findById(postId);
+        postOptional.ifPresent(asd -> {
+            asd.addComment(postComment);
+            postRepository.save(asd);
+        });
+
+
+        return "redirect:/post/" + postId;
+    }
+
+
 }

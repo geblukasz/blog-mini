@@ -17,12 +17,24 @@
         <div th:text="${#dates.format(comment.added, 'yyyyMMdd hh:mm:ss')}"></div>
         <div th:text="${comment.comment}"></div>
     </div>
+
+    <h3>Dodaj nowy komentarz:</h3>
+    <form th:action="@{/post/addComment}" method="post">
+        <input type="hidden" name="postId" th:value="${post.id}">
+        <!--<input type="text" th:name="title" placeholder="Tytuł...">-->
+        <!--<br>-->
+        Treść komentarza:<br>
+        <textarea th:type="text" th:name="commentBody"></textarea>
+        <br>
+        <input th:type="submit" value="Dodaj komentarz">
+    </form>
+
 </div>
 <p th:if="${post == null}">
     Przepraszamy, ale nie znalezlismy postu, ktorego szukasz. :(
 </p>
 
-<!-- /post/addComment -->
+
 
 </body>
 </html>
