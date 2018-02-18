@@ -12,7 +12,7 @@ public class PostComment {
 
     private String comment;
 
-    private Date added = new Date();
+    private AuditEntity auditEntity = new AuditEntity();
 
     @ManyToOne
     @JoinColumn(name = "postId")
@@ -42,11 +42,11 @@ public class PostComment {
         this.comment = comment;
     }
 
-    public Date getAdded() {
-        return added;
+    public AuditEntity getAuditEntity() {
+        return auditEntity;
     }
 
-    public void setAdded(Date added) {
-        this.added = added;
+    public void setAuditEntity(AuditEntity auditEntity) {
+        this.auditEntity = auditEntity;
     }
 }
