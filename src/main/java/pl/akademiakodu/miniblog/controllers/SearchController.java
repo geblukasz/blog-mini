@@ -22,6 +22,7 @@ public class SearchController {
         List<Post> posts = postRepository
                 .findAllByTitleContainsOrContentContains(searchPhrase, searchPhrase);
         model.addAttribute("posts", posts);
+        model.addAttribute("searchPhrase", searchPhrase);
         return "posts";
     }
 
