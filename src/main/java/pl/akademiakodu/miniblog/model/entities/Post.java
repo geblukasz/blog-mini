@@ -15,14 +15,14 @@ public class Post {
     //@Column(name = "contentString")
     private String content;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date added = new Date();
+   @Embedded
+   private AuditEntity auditEntity = new AuditEntity();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     //@JoinColumn(name = "postId")
     List<PostComment> comments = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "mapPostTag",
         joinColumns = {@JoinColumn(name="postId")},
         inverseJoinColumns = {@JoinColumn(name = "tagId")})
@@ -48,6 +48,14 @@ public class Post {
         postComment.setPost(null);
     }
 
+    public AuditEntity getAuditEntity() {
+        return auditEntity;
+    }
+
+    public void setAuditEntity(AuditEntity auditEntity) {
+        this.auditEntity = auditEntity;
+    }
+
     public Long getId() {
         return id;
     }
@@ -62,7 +70,7 @@ public class Post {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", added=" + added +
+//                ", added=" + added +
                 '}';
     }
 
@@ -98,11 +106,4 @@ public class Post {
         this.content = content;
     }
 
-    public Date getAdded() {
-        return added;
-    }
-
-    public void setAdded(Date added) {
-        this.added = added;
-    }
 }
