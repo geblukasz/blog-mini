@@ -1,6 +1,7 @@
 package pl.akademiakodu.miniblog.model.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,17 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
     //@JoinColumn(name = "postId")
-    List<PostComment> comments;
+    List<PostComment> comments = new ArrayList<>();
+
+    public void addComment(PostComment postComment){
+        comments.add(postComment);
+        postComment.setPost(this);
+    }
+
+    public void removeComment(PostComment postComment){
+        comments.remove(postComment);
+        postComment.setPost(null);
+    }
 
     @Override
     public String toString() {
