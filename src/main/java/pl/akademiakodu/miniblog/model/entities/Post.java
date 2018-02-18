@@ -19,7 +19,7 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     private Date added = new Date();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "postId")
     List<PostComment> comments;
 

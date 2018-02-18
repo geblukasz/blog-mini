@@ -31,13 +31,13 @@ public class MainController {
     public String addPost(Model model, @RequestParam (value = "title") String titleParam, @RequestParam String content){
         System.out.println("Params: " + titleParam + ", " + content);
         Post post = new Post(titleParam, content);
-//        PostComment postComment = new PostComment();
-//        postComment.setComment(titleParam);
-//
-//        List<PostComment> commentList = new ArrayList<>();
-//        commentList.add(postComment);
-//
-//        post.setComments(commentList);
+        PostComment postComment = new PostComment();
+        postComment.setComment(titleParam);
+
+        List<PostComment> commentList = new ArrayList<>();
+        commentList.add(postComment);
+
+        post.setComments(commentList);
 
         postRepository.save(post);
         return "index";
