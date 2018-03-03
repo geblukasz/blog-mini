@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.akademiakodu.miniblog.model.dtos.PostDto;
 import pl.akademiakodu.miniblog.model.dtos.TagDto;
 import pl.akademiakodu.miniblog.model.entities.Post;
 import pl.akademiakodu.miniblog.model.entities.Tag;
@@ -36,14 +37,8 @@ public class TagRestController {
 
 
 
-
-
-
-
-
-
-    @PutMapping("/tag/addPost")
-    public ResponseEntity<Post> addTagToPost(@RequestParam Long tagId, @RequestParam Long postId){
+    @PutMapping("/tag/addToPost")
+    public ResponseEntity<PostDto> addTagToPost(@RequestParam Long tagId, @RequestParam Long postId){
         Tag tag = tagRepository.getOne(tagId);
         Post post = postRepository.getOne(postId);
 
@@ -51,6 +46,6 @@ public class TagRestController {
         postRepository.save(post);
 
 
-        return ResponseEntity.ok().body(post);
+        return ResponseEntity.ok().body((new ModelMapper()).map(post, PostDto.class));
     }
 }

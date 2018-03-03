@@ -1,5 +1,6 @@
 package pl.akademiakodu.miniblog.model.dtos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import pl.akademiakodu.miniblog.model.entities.Post;
 
 import java.util.Set;
@@ -8,6 +9,8 @@ public class TagDto {
 
     private Long id;
     private String TagName;
+
+    @JsonBackReference
     private Set<PostDto> posts;
 
     public Long getId() {

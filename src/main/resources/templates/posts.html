@@ -16,7 +16,7 @@
     <div th:text="${post.content}"></div>
     <!-- czas, treść -->
     <div th:each="comment : ${post.comments}">
-        <div th:text="${#dates.format(comment.added, 'yyyyMMdd hh:mm:ss')}"></div>
+        <div th:text="${#dates.format(comment.audit.added, 'yyyyMMdd hh:mm:ss')}"></div>
         <div th:text="${comment.comment}"></div>
     </div>
 

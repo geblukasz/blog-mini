@@ -16,7 +16,7 @@ public class Post {
     private String content;
 
    @Embedded
-   private AuditEntity auditEntity = new AuditEntity();
+   private AuditEntity audit = new AuditEntity();
 
     @OneToMany(mappedBy = "post", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     //@JoinColumn(name = "postId")
@@ -48,12 +48,12 @@ public class Post {
         postComment.setPost(null);
     }
 
-    public AuditEntity getAuditEntity() {
-        return auditEntity;
+    public AuditEntity getAudit() {
+        return audit;
     }
 
-    public void setAuditEntity(AuditEntity auditEntity) {
-        this.auditEntity = auditEntity;
+    public void setAudit(AuditEntity audit) {
+        this.audit = audit;
     }
 
     public Long getId() {

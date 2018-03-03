@@ -1,7 +1,6 @@
 package pl.akademiakodu.miniblog.model.entities;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +14,7 @@ public class Tag {
     private String tagName;
 
     @Embedded
-    private AuditEntity auditEntity = new AuditEntity();
+    private AuditEntity audit = new AuditEntity();
 
     @ManyToMany(mappedBy = "tags")
     private Set<Post> posts = new HashSet<>();
@@ -45,12 +44,12 @@ public class Tag {
         this.tagName = tagName;
     }
 
-    public AuditEntity getAuditEntity() {
+    public AuditEntity getAudit() {
 
-        return auditEntity;
+        return audit;
     }
 
-    public void setAuditEntity(AuditEntity auditEntity) {
-        this.auditEntity = auditEntity;
+    public void setAudit(AuditEntity audit) {
+        this.audit = audit;
     }
 }

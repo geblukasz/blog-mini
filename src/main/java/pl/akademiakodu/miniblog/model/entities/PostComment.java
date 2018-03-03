@@ -1,7 +1,6 @@
 package pl.akademiakodu.miniblog.model.entities;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class PostComment {
@@ -12,7 +11,8 @@ public class PostComment {
 
     private String comment;
 
-    private AuditEntity auditEntity = new AuditEntity();
+    @Embedded
+    private AuditEntity audit = new AuditEntity();
 
     @ManyToOne
     @JoinColumn(name = "postId")
@@ -42,11 +42,11 @@ public class PostComment {
         this.comment = comment;
     }
 
-    public AuditEntity getAuditEntity() {
-        return auditEntity;
+    public AuditEntity getAudit() {
+        return audit;
     }
 
-    public void setAuditEntity(AuditEntity auditEntity) {
-        this.auditEntity = auditEntity;
+    public void setAudit(AuditEntity audit) {
+        this.audit = audit;
     }
 }
