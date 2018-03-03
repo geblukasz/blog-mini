@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini blog</title>
+</head>
+<body>
+<div class="header">
+    <div th:replace="~{includes/searchbar :: searchForm}"></div>
+
+</div>
+<h1>Zaloguj sie!</h1>
+<form th:action="@{/login}" method="post" th:object="${loginForm}">
+    <input th:type="text" th:field="*{userName}" placeholder="Nazwa użytkownika..." th:errorClass="error">
+    <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Blad nazwy uzytkownika...</span>
+    <br>
+    <input th:type="password" th:field="*{password}" th:errorClass="error">
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Blad nazwy uzytkownika...</span>
+    <br>
+    <input type="submit" th:value="Zaloguj">
+</form>
+
+
+
+
+
+
+
+</body>
+</html>

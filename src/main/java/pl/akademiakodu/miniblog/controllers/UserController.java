@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.akademiakodu.miniblog.model.entities.User;
+import pl.akademiakodu.miniblog.model.forms.LoginForm;
 import pl.akademiakodu.miniblog.model.forms.RegisterForm;
 import pl.akademiakodu.miniblog.model.repositories.UserRepository;
 
@@ -40,5 +41,21 @@ public class UserController {
     public String registerPage(Model model){
         model.addAttribute("registerForm", new RegisterForm());
         return "register";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@ModelAttribute LoginForm loginForm, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+            return "login";
+        }
+
+        return "index";
+    }
+
+    @GetMapping("/login")
+    public String loginPage(Model model){
+        model.addAttribute("loginForm", new LoginForm());
+        return "login";
     }
 }
