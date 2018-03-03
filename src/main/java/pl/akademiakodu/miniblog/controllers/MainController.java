@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.akademiakodu.miniblog.model.entities.Post;
 import pl.akademiakodu.miniblog.model.entities.PostComment;
 import pl.akademiakodu.miniblog.model.repositories.PostRepository;
+import pl.akademiakodu.miniblog.services.UserSessionService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,15 @@ public class MainController {
 
     private PostRepository postRepository;
 
+    private UserSessionService userSessionService;
+    @Autowired
+    public MainController(PostRepository postRepository, UserSessionService userSessionService) {
+        this.postRepository = postRepository;
+        this.userSessionService = userSessionService;
+    }
     @GetMapping("/")
     public String getIndexPage(Model model){
+        model.addAttribute("loggedUser", userSessionService.isLogged());
         model.addAttribute("name", "Jarek");
         return "index";
     }
@@ -93,8 +101,5 @@ public class MainController {
         return "posts";
     }
 
-    @Autowired
-    public MainController(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
+
 }

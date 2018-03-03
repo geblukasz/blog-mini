@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,18 +13,23 @@ import pl.akademiakodu.miniblog.model.entities.User;
 import pl.akademiakodu.miniblog.model.forms.LoginForm;
 import pl.akademiakodu.miniblog.model.forms.RegisterForm;
 import pl.akademiakodu.miniblog.model.repositories.UserRepository;
+import pl.akademiakodu.miniblog.services.UserSessionService;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class UserController {
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserSessionService userSessionService) {
         this.userRepository = userRepository;
+        this.userSessionService = userSessionService;
     }
 
     private UserRepository userRepository;
+    private UserSessionService userSessionService;
+
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute @Valid RegisterForm registerForm, BindingResult bindingResult, Model model){
@@ -44,11 +50,20 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute LoginForm loginForm, BindingResult bindingResult, Model model){
+    public String loginUser(@ModelAttribute @Valid LoginForm loginForm, BindingResult bindingResult, Model model){
+
+        boolean logged = userSessionService.loginUser(loginForm.getUserName(), loginForm.getPassword());
+        if(!logged){
+            bindingResult.addError(
+                    new ObjectError("userName", "Uzytkownik nie istnieje.")
+            );
+        }
 
         if(bindingResult.hasErrors()){
             return "login";
         }
+
+        model.addAttribute("loggedUser", logged);
 
         return "index";
     }
