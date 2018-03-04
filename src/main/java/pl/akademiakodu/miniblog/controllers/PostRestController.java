@@ -61,7 +61,11 @@ public class PostRestController {
 
         postRepository.save(post);
 
-        return ResponseEntity.ok().body((new ModelMapper()).map(post, PostDto.class));
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.createTypeMap(Post.class, PostDto.class)
+                .addMapping(pst -> pst.getUser().getId(), PostDto::setIdOfUser)
+                .addMapping(p -> p.getAudit().getAdded(), PostDto::setCreated);
+        return ResponseEntity.ok().body(modelMapper.map(post, PostDto.class));
     }
 
 }
