@@ -1,5 +1,8 @@
 package pl.akademiakodu.miniblog.model.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -27,6 +30,12 @@ public class Post {
         joinColumns = {@JoinColumn(name="postId")},
         inverseJoinColumns = {@JoinColumn(name = "tagId")})
     private Set<Tag> tags = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    @Getter @Setter
+    private User user;
+
 
     public Set<Tag> getTags() {
         return tags;

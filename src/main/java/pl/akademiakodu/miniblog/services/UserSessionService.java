@@ -1,6 +1,7 @@
 package pl.akademiakodu.miniblog.services;
 
 import lombok.Getter;
+import lombok.ToString;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -18,6 +19,7 @@ public class UserSessionService {
 
     @Getter
     private boolean logged;
+    @Getter
     private UserDto userDto;
 
     @Autowired

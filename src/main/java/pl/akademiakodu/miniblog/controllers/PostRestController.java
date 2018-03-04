@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.akademiakodu.miniblog.model.dtos.PostCommentDto;
+import pl.akademiakodu.miniblog.model.dtos.PostDto;
 import pl.akademiakodu.miniblog.model.entities.Post;
 import pl.akademiakodu.miniblog.model.entities.PostComment;
+import pl.akademiakodu.miniblog.model.entities.User;
 import pl.akademiakodu.miniblog.model.repositories.PostRepository;
+import pl.akademiakodu.miniblog.model.repositories.UserRepository;
 
 import java.util.Optional;
 
@@ -19,6 +22,9 @@ public class PostRestController {
 
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @PostMapping("/api/post/{postId}/comment")
     public ResponseEntity<PostCommentDto> addPostComment(@PathVariable Long postId, @RequestParam String comment){
@@ -44,4 +50,18 @@ public class PostRestController {
                 .body(modelMapper.map(savedComment, PostCommentDto.class));
 
     }
+
+    @PostMapping("/api/post")
+    public ResponseEntity<PostDto> addPost(@RequestParam String title
+            , @RequestParam String content, @RequestParam Long userId){
+
+        Optional<User> optionalUser = userRepository.findById(userId);
+        Post post = new Post(title, content);
+        optionalUser.ifPresent(u -> post.setUser(u));
+
+        postRepository.save(post);
+
+        return ResponseEntity.ok().body((new ModelMapper()).map(post, PostDto.class));
+    }
+
 }

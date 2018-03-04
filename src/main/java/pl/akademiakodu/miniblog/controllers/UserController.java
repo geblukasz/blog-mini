@@ -54,9 +54,7 @@ public class UserController {
 
         boolean logged = userSessionService.loginUser(loginForm.getUserName(), loginForm.getPassword());
         if(!logged){
-            bindingResult.addError(
-                    new ObjectError("userName", "Uzytkownik nie istnieje.")
-            );
+            bindingResult.rejectValue("userName", null,"Uzytkownik nie istnieje.");
         }
 
         if(bindingResult.hasErrors()){
@@ -65,7 +63,7 @@ public class UserController {
 
         model.addAttribute("loggedUser", logged);
 
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/login")

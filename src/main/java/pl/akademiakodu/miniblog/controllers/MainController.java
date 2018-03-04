@@ -30,7 +30,7 @@ public class MainController {
     }
     @GetMapping("/")
     public String getIndexPage(Model model){
-        model.addAttribute("loggedUser", userSessionService.isLogged());
+        model.addAttribute("loggedUser", userSessionService.getUserDto());
         model.addAttribute("name", "Jarek");
         return "index";
     }
