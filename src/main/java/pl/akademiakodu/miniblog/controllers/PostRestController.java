@@ -14,6 +14,7 @@ import pl.akademiakodu.miniblog.model.entities.PostComment;
 import pl.akademiakodu.miniblog.model.entities.User;
 import pl.akademiakodu.miniblog.model.repositories.PostRepository;
 import pl.akademiakodu.miniblog.model.repositories.UserRepository;
+import pl.akademiakodu.miniblog.services.PostService;
 
 import java.util.Optional;
 
@@ -24,7 +25,10 @@ public class PostRestController {
     PostRepository postRepository;
 
     @Autowired
-    UserRepository userRepository;
+    PostService postService;
+
+//    @Autowired
+//    UserRepository userRepository;
 
     @PostMapping("/api/post/{postId}/comment")
     public ResponseEntity<PostCommentDto> addPostComment(@PathVariable Long postId, @RequestParam String comment){
@@ -55,17 +59,8 @@ public class PostRestController {
     public ResponseEntity<PostDto> addPost(@RequestParam String title
             , @RequestParam String content, @RequestParam Long userId){
 
-        Optional<User> optionalUser = userRepository.findById(userId);
-        Post post = new Post(title, content);
-        optionalUser.ifPresent(u -> post.setUser(u));
-
-        postRepository.save(post);
-
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.createTypeMap(Post.class, PostDto.class)
-                .addMapping(pst -> pst.getUser().getId(), PostDto::setIdOfUser)
-                .addMapping(p -> p.getAudit().getAdded(), PostDto::setCreated);
-        return ResponseEntity.ok().body(modelMapper.map(post, PostDto.class));
+        PostDto postDto = postService.createPost(title, content, userId);
+        return ResponseEntity.ok().body(postDto);
     }
 
 }
