@@ -27,6 +27,9 @@ public class PostRestController {
     @Autowired
     PostService postService;
 
+    @Autowired
+    ModelMapper modelMapper;
+
 //    @Autowired
 //    UserRepository userRepository;
 
@@ -46,7 +49,7 @@ public class PostRestController {
 
         PostComment savedComment = post.getComments().get(post.getComments().size() - 1);
 
-        ModelMapper modelMapper = new ModelMapper();
+
         modelMapper.createTypeMap(PostComment.class, PostCommentDto.class)
                 .addMapping(pc -> pc.getAudit().getAdded(), PostCommentDto::setAdded);
 

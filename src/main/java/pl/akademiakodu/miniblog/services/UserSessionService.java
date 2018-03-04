@@ -25,6 +25,9 @@ public class UserSessionService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     public boolean loginUser(String userName, String password){
         Optional<User> optionalUser = userRepository.findByUserName(userName);
 
@@ -38,7 +41,7 @@ public class UserSessionService {
             return false;
         }
 
-        userDto = (new ModelMapper()).map(user, UserDto.class);
+        userDto = modelMapper.map(user, UserDto.class);
         logged = true;
         return logged;
 

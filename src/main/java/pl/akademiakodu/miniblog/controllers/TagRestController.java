@@ -20,6 +20,9 @@ public class TagRestController {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    ModelMapper modelMapper;
+
 
     @RequestMapping(value = "/tag", method = RequestMethod.POST)
     public ResponseEntity<TagDto> createTag(@RequestParam String tagName){
@@ -28,7 +31,7 @@ public class TagRestController {
 
         tagRepository.save(tag);
 
-        TagDto tagDto = (new ModelMapper()).map(tag, TagDto.class);
+        TagDto tagDto = modelMapper.map(tag, TagDto.class);
 
         return ResponseEntity
                 .ok()
@@ -46,6 +49,6 @@ public class TagRestController {
         postRepository.save(post);
 
 
-        return ResponseEntity.ok().body((new ModelMapper()).map(post, PostDto.class));
+        return ResponseEntity.ok().body(modelMapper.map(post, PostDto.class));
     }
 }

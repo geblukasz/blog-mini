@@ -16,11 +16,13 @@ public class PostService {
 
     PostRepository postRepository;
     UserRepository userRepository;
+    ModelMapper modelMapper;
 
     @Autowired
-    public PostService(PostRepository postRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
     }
 
     public PostDto createPost(String title, String content, Long userId){
@@ -30,11 +32,6 @@ public class PostService {
 
         postRepository.save(post);
 
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.createTypeMap(Post.class, PostDto.class)
-                .addMapping(pst -> pst.getUser().getId(), PostDto::setIdOfUser)
-                .addMapping(p -> p.getAudit().getAdded(), PostDto::setCreated);
         return modelMapper.map(post, PostDto.class);
-
     }
 }

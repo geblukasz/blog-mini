@@ -22,13 +22,15 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    public UserController(UserRepository userRepository, UserSessionService userSessionService) {
+    public UserController(UserRepository userRepository, UserSessionService userSessionService, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.userSessionService = userSessionService;
+        this.modelMapper = modelMapper;
     }
 
     private UserRepository userRepository;
     private UserSessionService userSessionService;
+    private ModelMapper modelMapper;
 
 
     @PostMapping("/register")
@@ -38,7 +40,7 @@ public class UserController {
             return "register";
         }
 
-        User user = (new ModelMapper()).map(registerForm, User.class);
+        User user = modelMapper.map(registerForm, User.class);
         userRepository.save(user);
         return "index";
     }

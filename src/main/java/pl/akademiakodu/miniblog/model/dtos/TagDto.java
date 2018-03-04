@@ -1,14 +1,20 @@
 package pl.akademiakodu.miniblog.model.dtos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.Setter;
 import pl.akademiakodu.miniblog.model.entities.Post;
 
+import java.util.Date;
 import java.util.Set;
 
+@Getter
+@Setter
 public class TagDto {
 
     private Long id;
     private String TagName;
+    private Date created;
 
     @JsonBackReference
     private Set<PostDto> posts;
@@ -36,4 +42,5 @@ public class TagDto {
     public void setPosts(Set<PostDto> posts) {
         this.posts = posts;
     }
+
 }
