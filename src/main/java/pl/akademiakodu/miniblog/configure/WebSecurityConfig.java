@@ -1,14 +1,19 @@
 package pl.akademiakodu.miniblog.configure;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import pl.akademiakodu.miniblog.model.security.BasicUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    BasicUserDetailsService basicUserDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -35,6 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .withUser("test").password("$2a$10$lpl2cBeBK8CSJv0HvMg.5..N0VsVstg1d4HV97LXYzRugYRwNFRLm").roles("USER")
 //                .and()
 //                .withUser("admin").password("$2a$10$ADzephZwqBERwCm7/2MrxuVgaGxJOWNfO/4U1sz8hgmmZzdG.WCGi").roles("USER", "ADMIN");
-        auth.userDetailsService()
+        auth.userDetailsService(basicUserDetailsService);
     }
 }
