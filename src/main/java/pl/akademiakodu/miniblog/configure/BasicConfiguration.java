@@ -3,6 +3,9 @@ package pl.akademiakodu.miniblog.configure;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.akademiakodu.miniblog.model.dtos.PostDto;
 import pl.akademiakodu.miniblog.model.dtos.TagDto;
 import pl.akademiakodu.miniblog.model.entities.Post;
@@ -20,5 +23,10 @@ public class BasicConfiguration {
         modelMapper.createTypeMap(Tag.class, TagDto.class)
                 .addMapping(t -> t.getAudit().getAdded(), TagDto::setCreated);
         return modelMapper;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }
