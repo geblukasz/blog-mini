@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BasicUserDetailsService implements UserDetailsService{
+public class CustomUserDetailsService implements UserDetailsService{
 
     @Autowired
     UserRepository userRepository;
@@ -36,12 +36,19 @@ public class BasicUserDetailsService implements UserDetailsService{
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
-        org.springframework.security.core.userdetails.User userDetails =
-                new org.springframework.security.core.userdetails.User(
+//        CustomUserDetails userDetails =
+//                new CustomUserDetails(
+//                username, user.getPassword()
+//                , true, true, true, true
+//                , grantedAuthorities);
+//        userDetails.setEmail(user.getEmail());
+
+        UserDetails userDetails =
+                new CustomUserDetails(
                 username, user.getPassword()
                 , true, true, true, true
-                , grantedAuthorities);
-
+                , grantedAuthorities
+                , user.getEmail());
 
         return userDetails;
     }

@@ -6,14 +6,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import pl.akademiakodu.miniblog.model.security.BasicUserDetailsService;
+import pl.akademiakodu.miniblog.model.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    BasicUserDetailsService basicUserDetailsService;
+    CustomUserDetailsService basicUserDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
