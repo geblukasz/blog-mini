@@ -73,4 +73,10 @@ public class UserController {
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
+
+    @GetMapping("/logout")
+    public String logout(){
+        userSessionService.logout();
+        return "redirect:/login";
+    }
 }
