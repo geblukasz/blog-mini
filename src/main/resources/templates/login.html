@@ -10,7 +10,7 @@
 
 </div>
 <h1>Zaloguj sie!</h1>
-<form th:action="@{/login}" method="post" th:object="${loginForm}">
+<form th:action="@{/login-process}" method="post" th:object="${loginForm}">
     <input th:type="text" th:field="*{userName}" placeholder="Nazwa użytkownika..." th:errorClass="error">
     <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Blad nazwy uzytkownika...</span>
     <br>
