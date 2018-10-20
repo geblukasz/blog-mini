@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 @ToString(exclude = {"password"})
 public class RegisterForm {
 
-    @Size(min = 6, message = "Nazwa uzytkownika musi posiadać minimum {min} znakow. Podana fraza ${validatedValue} nie pasuje do tych wytycznych.")
+    @Size(min = 4, message = "Nazwa uzytkownika musi posiadać minimum {min} znakow. Podana fraza ${validatedValue} nie pasuje do tych wytycznych.")
     private String userName;
 
     @Pattern(regexp = "[A-z0-9.]+@[a-z0-9\\-]+\\.[a-z]{2,5}", message = "Podaj prawidłowy email.")
