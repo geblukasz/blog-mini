@@ -41,7 +41,7 @@ public class MainController {
         return "index";
     }
 
-    @PostMapping("/addPost")
+    @PostMapping("/addOnePost")
     public String addPost(Model model, @RequestParam (value = "title") String titleParam, @RequestParam String content){
         System.out.println("Params: " + titleParam + ", " + content);
         Post post = new Post(titleParam, content);
@@ -61,8 +61,8 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/addPost")
-    public String addPostPage(){
+    @GetMapping("/addOnePost")
+    public String addOnePost(){
         return "addPost";
     }
 

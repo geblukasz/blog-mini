@@ -16,7 +16,7 @@ public class RegisterForm {
     @Pattern(regexp = "[A-z0-9.]+@[a-z0-9\\-]+\\.[a-z]{2,5}", message = "Podaj prawidłowy email.")
     private String email;
 
-    @Size(min = 6, max = 10, message = "Haslo musi miec pomiedzy {min} a {max} znakow.")
+    @Size(min = 6, max = 70, message = "Haslo musi miec pomiedzy {min} a {max} znakow.")
     private String password;
 
 }
