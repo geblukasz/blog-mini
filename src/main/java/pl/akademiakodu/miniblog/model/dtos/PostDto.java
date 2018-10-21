@@ -16,8 +16,10 @@ public class PostDto {
     private Long idOfUser;
     private Date created;
 
+/*
     @JsonManagedReference
     private Set<TagDto> tags;
+*/
 
 
 }

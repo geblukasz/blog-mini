@@ -25,17 +25,18 @@ public class Post {
     //@JoinColumn(name = "postId")
     List<PostComment> comments = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    /*@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "mapPostTag",
         joinColumns = {@JoinColumn(name="postId")},
         inverseJoinColumns = {@JoinColumn(name = "tagId")})
-    private Set<Tag> tags = new HashSet<>();
+    private Set<Tag> tags = new HashSet<>();*/
 
     @ManyToOne
     @JoinColumn(name = "userId")
     @Getter @Setter
     private User user;
 
+/*
 
     public Set<Tag> getTags() {
         return tags;
@@ -44,6 +45,7 @@ public class Post {
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
+*/
 
 
 
